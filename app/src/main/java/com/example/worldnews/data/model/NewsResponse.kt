@@ -24,5 +24,5 @@ data class Article(
 @Serializable
 data class Source(
     val id: String? = null,
-    val name: String
+    val name: Source
 )
