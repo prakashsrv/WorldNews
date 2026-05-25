@@ -66,6 +66,11 @@ dependencies {
     // Coil
     implementation("io.coil-kt:coil-compose:2.7.0")
 
+    // Room
+    implementation("androidx.room:room-runtime:2.7.1")
+    implementation("androidx.room:room-ktx:2.7.1")       // for coroutines/Flow support
+    ksp("androidx.room:room-compiler:2.7.1")
+
 
 
     implementation(platform(libs.androidx.compose.bom))
