@@ -2,6 +2,7 @@ package com.example.worldnews.ui.news
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.worldnews.data.model.Article
 import com.example.worldnews.data.model.NewsResponse
 import com.example.worldnews.data.repository.NewsRepository
 import com.example.worldnews.ui.base.UiState
@@ -18,30 +19,40 @@ class NewsViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    private val _newsState = MutableStateFlow<UiState<NewsResponse>>(UiState.Initial)
+    private val _newsState = MutableStateFlow<UiState<List<Article>>>(UiState.Initial)
 
     //This is the public version that UI (Activity/Fragment/Compose) can observe, but cannot modify.
     val newsState = _newsState.asStateFlow()
 
     init {
-            getNews()
+        observeArticles()
+        refreshNews()
     }
 
-    fun getNews() {
+
+    fun observeArticles() {
         viewModelScope.launch {
-            _newsState.value = UiState.Loading
-
-            try {
-
-                val response = repository.getNews()
-
-                _newsState.value = UiState.Success(response)
-
-            } catch (e: Exception) {
-                _newsState.value = UiState.Error(e.toString())
+            repository.observeArticles().collect { articles ->
+                if (articles.isNotEmpty()) {
+                    _newsState.value = UiState.Success(articles)
+                }
             }
         }
+    }
 
+    fun refreshNews() {
+        viewModelScope.launch {
+            if (_newsState.value !is UiState.Success) {
+                _newsState.value = UiState.Loading
+            }
+            try {
+                repository.fetchAndCache()
+            } catch (e: Exception) {
+                if (_newsState.value !is UiState.Success) {
+                    _newsState.value = UiState.Error(e.message)
+                }
+            }
+        }
     }
 
 

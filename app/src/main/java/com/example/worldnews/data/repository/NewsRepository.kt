@@ -19,7 +19,7 @@ class NewsRepository @Inject constructor(
 ) {
 
 
-    fun getNews(): Flow<UiState<List<Article>>> = flow {
+    fun fetchAndCache(): Flow<UiState<List<Article>>> = flow {
         //emit db data first
         val cached = newsDao.getAllArticles().first()
         if (cached.isNotEmpty()) {
