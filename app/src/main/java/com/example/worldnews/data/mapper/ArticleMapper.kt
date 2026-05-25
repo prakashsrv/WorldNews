@@ -6,7 +6,7 @@ import com.example.worldnews.data.model.Source
 
 fun Article.toEntity(): ArticleEntity = ArticleEntity(
     url = url,
-    source = source,
+    source = source.na,
     author = author,
     title = title,
     description = description,

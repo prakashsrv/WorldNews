@@ -57,7 +57,7 @@ fun NewsScreen(viewModel: NewsViewModel = hiltViewModel()
             }
             is UiState.Success<*> -> {
 
-                val article = (state as UiState.Success).data.articles
+                val article = (state as UiState.Success<List<Article>>).data
 
                 LazyColumn(
                     modifier = Modifier
