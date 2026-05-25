@@ -46,7 +46,10 @@ class NewsViewModel @Inject constructor(
                 _newsState.value = UiState.Loading
             }
             try {
-                repository.fetchAndCache()
+                repository.fetchAndCache().collect { uiState ->
+                    _newsState.value = uiState
+
+                }
             } catch (e: Exception) {
                 if (_newsState.value !is UiState.Success) {
                     _newsState.value = UiState.Error(e.message)

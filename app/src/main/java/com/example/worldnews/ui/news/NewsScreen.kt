@@ -95,7 +95,7 @@ fun NewsScreen(viewModel: NewsViewModel = hiltViewModel()
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = (state as UiState.Error).message ?: "INIT.....",
+                        text = "INIT.....",
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }
@@ -164,7 +164,7 @@ fun NewsItem(
             }
 
             Text(
-                text = article.source,
+                text = article.source.name,
                 style = MaterialTheme.typography.labelMedium
             )
 
