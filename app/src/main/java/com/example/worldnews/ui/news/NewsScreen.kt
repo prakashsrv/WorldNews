@@ -164,7 +164,7 @@ fun NewsItem(
             }
 
             Text(
-                text = article.source.name,
+                text = article.source,
                 style = MaterialTheme.typography.labelMedium
             )
 

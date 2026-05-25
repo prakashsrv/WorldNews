@@ -8,7 +8,7 @@ import com.example.worldnews.data.model.Source
 data class ArticleEntity (
 
     @PrimaryKey val url: String,
-    val source: Source,
+    val source: String,
     val author: String? = null,
     val title: String,
     val description: String? = null,

@@ -11,7 +11,7 @@ data class NewsResponse(
 
 @Serializable
 data class Article(
-    val source: Source,
+    val source: String,
     val author: String? = null,
     val title: String,
     val description: String? = null,

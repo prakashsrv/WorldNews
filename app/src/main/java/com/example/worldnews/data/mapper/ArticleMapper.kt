@@ -6,7 +6,7 @@ import com.example.worldnews.data.model.Source
 
 fun Article.toEntity(): ArticleEntity = ArticleEntity(
     url = url,
-    source = source.na,
+    source = source,
     author = author,
     title = title,
     description = description,
@@ -16,7 +16,7 @@ fun Article.toEntity(): ArticleEntity = ArticleEntity(
 )
 
 fun ArticleEntity.toDomainModel(): Article = Article(
-    source = Source(id = null, name = source),
+    source = source,
     author = author,
     title = title,
     description = description,
