@@ -46,8 +46,17 @@ class NewsViewModel @Inject constructor(
                 _newsState.value = UiState.Loading
             }
             try {
+
+                val currentState = _newsState.value
+
+                val alreadyHasData = currentState is UiState.Success
+
+
                 repository.fetchAndCache().collect { uiState ->
-                    _newsState.value = uiState
+                    val newDataArrived = uiState is UiState.Success
+                    if (newDataArrived || !alreadyHasData) {
+                        _newsState.value = uiState
+                    }
 
                 }
             } catch (e: Exception) {
