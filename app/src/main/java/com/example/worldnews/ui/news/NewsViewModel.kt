@@ -2,9 +2,8 @@ package com.example.worldnews.ui.news
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.worldnews.data.model.Article
-import com.example.worldnews.data.model.NewsResponse
-import com.example.worldnews.data.repository.NewsRepository
+import com.example.worldnews.domain.model.Article
+import com.example.worldnews.domain.usecase.NewsUseCases
 import com.example.worldnews.ui.base.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,13 +14,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NewsViewModel @Inject constructor(
-    private val repository: NewsRepository
+    private val useCases: NewsUseCases
 ) : ViewModel() {
 
-
     private val _newsState = MutableStateFlow<UiState<List<Article>>>(UiState.Initial)
-
-    //This is the public version that UI (Activity/Fragment/Compose) can observe, but cannot modify.
     val newsState = _newsState.asStateFlow()
 
     init {
@@ -29,10 +25,9 @@ class NewsViewModel @Inject constructor(
         refreshNews()
     }
 
-
-    fun observeArticles() {
+    private fun observeArticles() {
         viewModelScope.launch {
-            repository.observeArticles().collect { articles ->
+            useCases.observeNews().collect { articles ->
                 if (articles.isNotEmpty()) {
                     _newsState.value = UiState.Success(articles)
                 }
@@ -46,18 +41,14 @@ class NewsViewModel @Inject constructor(
                 _newsState.value = UiState.Loading
             }
             try {
-
                 val currentState = _newsState.value
-
                 val alreadyHasData = currentState is UiState.Success
 
-
-                repository.fetchAndCache().collect { uiState ->
+                useCases.getNews().collect { uiState ->
                     val newDataArrived = uiState is UiState.Success
                     if (newDataArrived || !alreadyHasData) {
                         _newsState.value = uiState
                     }
-
                 }
             } catch (e: Exception) {
                 if (_newsState.value !is UiState.Success) {
@@ -66,6 +57,4 @@ class NewsViewModel @Inject constructor(
             }
         }
     }
-
-
 }

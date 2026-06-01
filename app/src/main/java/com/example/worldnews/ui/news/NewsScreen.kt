@@ -27,36 +27,31 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
-import com.example.worldnews.data.model.Article
+import com.example.worldnews.domain.model.Article  // ← CHANGED: import from domain now
 import com.example.worldnews.ui.base.UiState
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun NewsScreen(viewModel: NewsViewModel = hiltViewModel()
-) {
+fun NewsScreen(viewModel: NewsViewModel = hiltViewModel()) {  // ← NO CHANGES to parameter
 
     val state by viewModel.newsState.collectAsStateWithLifecycle()
 
     Scaffold(
         modifier = Modifier.fillMaxSize()
-
     ) { innerPadding ->
 
-        when(state){
+        when(state) {
 
-            is UiState.Loading ->{
-
+            is UiState.Loading -> {
                 Box(
-                    modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center,
-
-                )
-                {
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center,
+                ) {
                     CircularProgressIndicator()
                 }
-
             }
-            is UiState.Success<*> -> {
 
+            is UiState.Success<*> -> {
                 val article = (state as UiState.Success<List<Article>>).data
 
                 LazyColumn(
@@ -64,15 +59,13 @@ fun NewsScreen(viewModel: NewsViewModel = hiltViewModel()
                         .fillMaxSize()
                         .padding(innerPadding)
                 ) {
-                    items(article){
-                        article -> NewsItem(article = article)
-
+                    items(article) { article ->
+                        NewsItem(article = article)
                     }
                 }
-
             }
-            is UiState.Error -> {
 
+            is UiState.Error -> {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
@@ -84,10 +77,9 @@ fun NewsScreen(viewModel: NewsViewModel = hiltViewModel()
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }
-
             }
-            is UiState.Initial -> {
 
+            is UiState.Initial -> {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
@@ -99,27 +91,14 @@ fun NewsScreen(viewModel: NewsViewModel = hiltViewModel()
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }
-
             }
-
         }
-
-
-
     }
-
-
-
-
-
-
-
 }
-
 
 @Composable
 fun NewsItem(
-    article: Article
+    article: Article  // ← CHANGED: uses domain Article now
 ) {
 
     Card(
@@ -153,24 +132,17 @@ fun NewsItem(
             Spacer(modifier = Modifier.height(8.dp))
 
             article.description?.let {
-
                 Text(
                     text = it,
                     style = MaterialTheme.typography.bodyMedium
                 )
-
                 Spacer(modifier = Modifier.height(8.dp))
-
             }
 
             Text(
                 text = article.source.name,
                 style = MaterialTheme.typography.labelMedium
             )
-
         }
-
     }
-
 }
-
