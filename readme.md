@@ -1,5 +1,109 @@
 ## Clean Architecture Migration - Interview Explanation
 
+
+┌─────────────────────────────────────────────┐
+│              PRESENTATION LAYER             │
+├─────────────────────────────────────────────┤
+│  NewsScreen / Activity / Fragment           │
+│                    │                         │
+│                    ▼                         │
+│              NewsViewModel                  │
+│                    │                         │
+└────────────────────┼─────────────────────────┘
+│ uses
+▼
+┌─────────────────────────────────────────────┐
+│                DOMAIN LAYER                 │
+├─────────────────────────────────────────────┤
+│                                             │
+│           GetNewsUseCase                    │
+│                  +                          │
+│         ObserveNewsUseCase                  │
+│                    │                         │
+│                    ▼                         │
+│        NewsRepository (Interface)           │
+│                    │                         │
+│                Article                      │
+│              (Entity)                        │
+└────────────────────┼─────────────────────────┘
+│ implemented by
+▼
+┌─────────────────────────────────────────────┐
+│                 DATA LAYER                  │
+├─────────────────────────────────────────────┤
+│       NewsRepositoryImpl                    │
+│                    │                         │
+│       ┌────────────┴────────────┐           │
+│       ▼                         ▼           │
+│ RemoteDataSource         LocalDataSource    │
+│       │                         │           │
+│       ▼                         ▼           │
+│   News API               Article DAO        │
+│                                │            │
+│                                ▼            │
+│                         Room Database       │
+│                                             │
+│          Mappers (API ↔ Domain ↔ DB)        │
+└─────────────────────────────────────────────┘
+//Data Flow During Refresh
+
+User Pulls To Refresh
+│
+▼
+NewsViewModel
+│
+▼
+GetNewsUseCase
+│
+▼
+NewsRepository Interface
+│
+▼
+NewsRepositoryImpl
+│
+├─────────────────────┐
+│                     │
+▼                     ▼
+LocalDataSource       RemoteDataSource
+│                     │
+▼                     ▼
+Room DB              News API
+│                     │
+└─────────┬───────────┘
+▼
+Cache Articles
+│
+▼
+Flow<UiState<List<Article>>>
+│
+▼
+NewsViewModel
+│
+▼
+UI
+
+
+┌───────────────────────────────────────┐
+│          Framework Layer              │
+│    Retrofit • Room • Android          │
+│                                       │
+│  ┌─────────────────────────────────┐  │
+│  │          Data Layer             │  │
+│  │ RepositoryImpl                  │  │
+│  │ RemoteDataSource                │  │
+│  │ LocalDataSource                 │  │
+│  │ Mappers                         │  │
+│  │                                 │  │
+│  │ ┌─────────────────────────────┐ │  │
+│  │ │       Domain Layer          │ │  │
+│  │ │ UseCases                    │ │  │
+│  │ │ Repository Interface        │ │  │
+│  │ │ Entities                    │ │  │
+│  │ └─────────────────────────────┘ │  │
+│  └─────────────────────────────────┘  │
+└───────────────────────────────────────┘
+
+Dependencies always point inward.
 ### 1. THE PROBLEM (What was wrong with MVVM?)
 
 **Old MVVM Structure:**
