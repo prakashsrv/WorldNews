@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>EmptyClassBlock:NewsApplication.kt$NewsApplication${ }</ID>
+    <ID>FunctionNaming:MainActivity.kt$@Composable fun Greeting(name: String, modifier: Modifier = Modifier)</ID>
+    <ID>FunctionNaming:MainActivity.kt$@Preview(showBackground = true) @Composable fun GreetingPreview()</ID>
+    <ID>FunctionNaming:NewsScreen.kt$@Composable fun NewsItem( article: Article )</ID>
+    <ID>FunctionNaming:NewsScreen.kt$@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter") @Composable fun NewsScreen(viewModel: NewsViewModel = hiltViewModel() )</ID>
+    <ID>FunctionNaming:Theme.kt$@Composable fun WorldNewsTheme( darkTheme: Boolean = isSystemInDarkTheme(), // Dynamic color is available on Android 12+ dynamicColor: Boolean = true, content: @Composable () -&gt; Unit )</ID>
+    <ID>FunctionOnlyReturningConstant:ApplicationModule.kt$ApplicationModule$@BaseUrl @Provides fun provideBaseUrl():String</ID>
+    <ID>MagicNumber:Color.kt$0xFF625b71</ID>
+    <ID>MagicNumber:Color.kt$0xFF6650a4</ID>
+    <ID>MagicNumber:Color.kt$0xFF7D5260</ID>
+    <ID>MagicNumber:Color.kt$0xFFCCC2DC</ID>
+    <ID>MagicNumber:Color.kt$0xFFD0BCFF</ID>
+    <ID>MagicNumber:Color.kt$0xFFEFB8C8</ID>
+    <ID>MatchingDeclarationName:NewsViewModelTest.dart.kt$NewsViewModelTest</ID>
+    <ID>MatchingDeclarationName:qualifiers.kt$BaseUrl</ID>
+    <ID>NewLineAtEndOfFile:ApplicationModule.kt$com.example.worldnews.di.module.ApplicationModule.kt</ID>
+    <ID>NewLineAtEndOfFile:ArticleDao.kt$com.example.worldnews.data.local.ArticleDao.kt</ID>
+    <ID>NewLineAtEndOfFile:ArticleMapper.kt$com.example.worldnews.data.mapper.ArticleMapper.kt</ID>
+    <ID>NewLineAtEndOfFile:ArticleMapperTest.kt$com.example.worldnews.ArticleMapperTest.kt</ID>
+    <ID>NewLineAtEndOfFile:Color.kt$com.example.worldnews.ui.theme.Color.kt</ID>
+    <ID>NewLineAtEndOfFile:Constants.kt$com.example.worldnews.utils.Constants.kt</ID>
+    <ID>NewLineAtEndOfFile:ExampleUnitTest.kt$com.example.worldnews.ExampleUnitTest.kt</ID>
+    <ID>NewLineAtEndOfFile:MainActivity.kt$com.example.worldnews.MainActivity.kt</ID>
+    <ID>NewLineAtEndOfFile:NewsApi.kt$com.example.worldnews.data.api.NewsApi.kt</ID>
+    <ID>NewLineAtEndOfFile:NewsApplication.kt$com.example.worldnews.NewsApplication.kt</ID>
+    <ID>NewLineAtEndOfFile:NewsDatabase.kt$com.example.worldnews.data.local.NewsDatabase.kt</ID>
+    <ID>NewLineAtEndOfFile:NewsRepository.kt$com.example.worldnews.data.repository.NewsRepository.kt</ID>
+    <ID>NewLineAtEndOfFile:NewsRepositoryTest.kt$com.example.worldnews.NewsRepositoryTest.kt</ID>
+    <ID>NewLineAtEndOfFile:NewsResponse.kt$com.example.worldnews.data.model.NewsResponse.kt</ID>
+    <ID>NewLineAtEndOfFile:NewsViewModel.kt$com.example.worldnews.ui.news.NewsViewModel.kt</ID>
+    <ID>NewLineAtEndOfFile:NewsViewModelTest.dart.kt$com.example.worldnews.NewsViewModelTest.dart.kt</ID>
+    <ID>NewLineAtEndOfFile:Theme.kt$com.example.worldnews.ui.theme.Theme.kt</ID>
+    <ID>NewLineAtEndOfFile:Type.kt$com.example.worldnews.ui.theme.Type.kt</ID>
+    <ID>NewLineAtEndOfFile:UiState.kt$com.example.worldnews.ui.base.UiState.kt</ID>
+    <ID>NewLineAtEndOfFile:qualifiers.kt$com.example.worldnews.di.module.qualifiers.kt</ID>
+    <ID>TooGenericExceptionCaught:NewsRepository.kt$NewsRepository$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:NewsViewModel.kt$NewsViewModel$e: Exception</ID>
+    <ID>WildcardImport:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
+  </CurrentIssues>
+</SmellBaseline>

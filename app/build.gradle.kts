@@ -3,14 +3,18 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
+    id("org.jlleitschuh.gradle.ktlint")
+    id("io.gitlab.arturbosch.detekt")
+
 }
 
 android {
     namespace = "com.example.worldnews"
     compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
+        version =
+            release(36) {
+                minorApiLevel = 1
+            }
     }
 
     defaultConfig {
@@ -28,7 +32,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -68,7 +72,7 @@ dependencies {
 
     // Room
     implementation("androidx.room:room-runtime:2.7.1")
-    implementation("androidx.room:room-ktx:2.7.1")       // for coroutines/Flow support
+    implementation("androidx.room:room-ktx:2.7.1") // for coroutines/Flow support
     ksp("androidx.room:room-compiler:2.7.1")
 
     // Unit tests
@@ -80,8 +84,6 @@ dependencies {
     // DAO / Integration tests
     androidTestImplementation("androidx.room:room-testing:2.7.1")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
-
-
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
