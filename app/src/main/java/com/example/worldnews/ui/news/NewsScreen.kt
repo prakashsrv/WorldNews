@@ -32,7 +32,8 @@ import com.example.worldnews.ui.base.UiState
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun NewsScreen(viewModel: NewsViewModel = hiltViewModel()
+fun NewsScreen(
+    viewModel: NewsViewModel = hiltViewModel()
 ) {
 
     val state by viewModel.newsState.collectAsStateWithLifecycle()
@@ -42,19 +43,20 @@ fun NewsScreen(viewModel: NewsViewModel = hiltViewModel()
 
     ) { innerPadding ->
 
-        when(state){
+        when (state) {
 
-            is UiState.Loading ->{
+            is UiState.Loading -> {
 
                 Box(
                     modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center,
 
-                )
+                    )
                 {
                     CircularProgressIndicator()
                 }
 
             }
+
             is UiState.Success<*> -> {
 
                 val article = (state as UiState.Success<List<Article>>).data
@@ -64,13 +66,14 @@ fun NewsScreen(viewModel: NewsViewModel = hiltViewModel()
                         .fillMaxSize()
                         .padding(innerPadding)
                 ) {
-                    items(article){
-                        article -> NewsItem(article = article)
+                    items(article) { article ->
+                        NewsItem(article = article)
 
                     }
                 }
 
             }
+
             is UiState.Error -> {
 
                 Box(
@@ -86,6 +89,7 @@ fun NewsScreen(viewModel: NewsViewModel = hiltViewModel()
                 }
 
             }
+
             is UiState.Initial -> {
 
                 Box(
@@ -105,13 +109,7 @@ fun NewsScreen(viewModel: NewsViewModel = hiltViewModel()
         }
 
 
-
     }
-
-
-
-
-
 
 
 }
